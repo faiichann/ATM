@@ -4,13 +4,110 @@ import string
 import os
 
 # creatinga lists of users, their PINs and bank statements
-users = ['user', 'user2', 'user3']
+users = ['user', 'user2', 'user3'] 
 pins = ['1234', '2222', '3333']
 amounts = [1000, 2000, 3000]
 n100 = 2
 n500 = 5
 n1000 = 5
 count = 0
+
+def withdraw(cash_out):
+	if cash_out%100 != 0:
+		print('------------------------------------------------------')
+		print('******************************************************')
+		print('AMOUNT YOU WANT TO WITHDRAW MUST TO MATCH 100,500,1000 BATH NOTES')
+
+	elif cash_out > amounts[n]:
+		print('-----------------------------')
+		print('*****************************')
+		print('YOU HAVE INSUFFICIENT BALANCE')
+
+	elif 100 > cash_out or cash_out > 20000 :
+		print('-----------------------------------------------------')
+		print('*****************************************************')
+		print('YOU CAN WITHDRAW MONEY IN THE RANGE OF 100-20000 BATH ')
+
+	elif cash_out <= amounts[n]:
+		amounts[n] = amounts[n] - cash_out
+		b1000 = cash_out//1000
+		b500 = (cash_out%1000)//500
+		b100 = (cash_out%500)//100
+		if b100 > n100 :
+				print('*************************************************************')
+				print('ATM NOT ENOUGH 100 NOTES ONLY HAVE NOTE FOR 500 AND 1000 BATH')
+				print('*************************************************************')
+						
+		elif b500 > n500 :
+				print('*****************************************************')
+				print('ATM NOT ENOUGH 500 NOTES ONLY HAVE NOTE FOR 1000 BATH')
+				print('*****************************************************')
+						
+		elif b1000 > n1000 :
+				print('****************************')
+				print('ATM NOT ENOUGH MONEY FOR YOU')
+				print('****************************')
+		else:		
+			print('YOU WITHDRAW AMOUNT IS', cash_out , 'BATH')
+			print('YOU GET 100 BATH :' ,b100, 'NOTES')
+			print('YOU GET 500 BATH :' ,b500, 'NOTES')
+			print('YOU GET 1000 BATH :' ,b1000, 'NOTES')
+			print()
+			print('-----------------------------------')
+			print('***********************************')
+			print('YOUR NEW BALANCE IS: ', amounts[n], 'BATH')
+def Loadgement(cash_in):
+	print()
+	if cash_in%100 != 0:
+			print('----------------------------------------------------')
+			print('****************************************************')
+			print('AMOUNT YOU WANT TO LODGE MUST TO MATCH 100,500,1000 BATH NOTES')
+	else:
+			amounts[n] = amounts[n] + cash_in
+			b1000_in = cash_in//1000
+			b500_in = (cash_in%1000)//500
+			b100_in = (cash_in%500)//100
+			print('----------------------------------------')
+			print('****************************************')
+			print('YOU PUT 100 BATH :' ,b100_in, 'NOTES')
+			print('YOU PUT 500 BATH :' ,b500_in, 'NOTES')
+			print('YOU PUT 1000 BATH :' ,b1000_in, 'NOTES')
+			print()
+			print('----------------------------------------')
+			print('****************************************')
+			print('YOUR NEW BALANCE IS: ', amounts[n], 'BATH')
+def SelectO(morebank):
+			print('BANK NAME :',morebank)
+			while True:
+				try:
+					acount_id = int(input('ENTER BANK ACCOUNT ID: '))	
+					print('----------------------------------------------------')
+					print('****************************************************')
+					while True:
+						try:	
+							amount_trans = int(input('ENTER AMOUNT YOU WANT TO TRANSFER: '))
+							print('----------------------------------------------------')
+							print('****************************************************')
+							print()
+
+							amounts[n] = amounts[n] - amount_trans
+							print('----------------------------------------------------')
+							print('****************************************************')
+							print('YOUR ARE SUCCESSFUL TRANSFER : \nBANk : ',morebank, ' \nACCOUNT_ID : ',acount_id, '\nAMOUNT_TRANSFER :' ,amount_trans, 'BATH' )
+							print('YOUR LEDGER BALANCE IS: ', amounts[n], 'BATH')
+							print('****************************************************')
+							print('----------------------------------------------------')
+							break
+						except:
+							print("This is not a number. Please enter a valid Money")	
+							print('------------------------------------------------------')
+					break
+				except:
+					print("This is not a number. Please enter a valid ACCOUNT ID")	
+					print('------------------------------------------------------')
+			
+
+			
 # while loop checks existance of the enterd username
 while True:
 	user = input('\nENTER USER NAME: ')
@@ -38,7 +135,7 @@ while count < 3:
 	print('******************')
 	print('------------------')
 	if pin.isdigit():
-		if user == 'user1':
+		if user == 'user':
 			if pin == pins[0]:
 				break
 			else:
@@ -108,8 +205,6 @@ while True:
 	print('-------------------------------')
 	print('*******************************')
 	response = input('SELECT FROM FOLLOWING OPTIONS: \nStatement_____(S) \nWithdraw______(W) \nLodgement_____(L) \nTransfer______(T)  \nChange PIN____(P)  \nQuit__________(Q) \n: ').lower()
-	print('*******************************')
-	print('-------------------------------')
 	valid_responses = ['s', 'w', 't' , 'l', 'p', 'q']
 	response = response.lower()
 	if response == 's':
@@ -120,107 +215,61 @@ while True:
 		print('---------------------------------------------')
 		
 	elif response == 'w':
-		print('---------------------------------------------')
-		print('*********************************************')
-		input_cash = input('SELECT WITHDRAW MONEY FOLLOWING : \n100 BATH______(A) \n500 BATH______(B) \n1000 BATH_____(C) \n5000 BATH_____(D) \n10000 BATH____(E) \nSPECIFY NUMBER___(I) \n: ').lower()
-		print('---------------------------------------------')
-		print('*********************************************')
-		valid_input = ['a', 'b', 'c' , 'd', 'e', 'i']
-		input_cash = input_cash.lower()
-		if input_cash == 'a':
-			cash_out = 100
-		elif input_cash == 'b' :
-			cash_out = 500
-		elif input_cash == 'c' :
-			cash_out = 1000	
-		elif input_cash == 'd' :
-    			cash_out = 5000	
-		elif input_cash == 'e' :
-    			cash_out = 10000
-		elif input_cash == 'i' :	
-				cash_out = int(input('ENTER AMOUNT YOU WOULD LIKE TO WITHDRAW: '))
-				print('*********************************************')
-				print('---------------------------------------------')
-		
-		if cash_out%100 != 0:
-			print('------------------------------------------------------')
-			print('******************************************************')
-			print('AMOUNT YOU WANT TO WITHDRAW MUST TO MATCH 100,500,1000 BATH NOTES')
-			print('******************************************************')
-			print('------------------------------------------------------')
-		elif cash_out > amounts[n]:
-			print('-----------------------------')
-			print('*****************************')
-			print('YOU HAVE INSUFFICIENT BALANCE')
-			print('*****************************')
-			print('-----------------------------')
-		elif 100 > cash_out or cash_out > 20000 :
-			print('-----------------------------------------------------')
-			print('*****************************************************')
-			print('YOU CAN WITHDRAW MONEY IN THE RANGE OF 100-2000 BATH ')
-			print('*****************************************************')
-			print('-----------------------------------------------------')
-		else:
-			amounts[n] = amounts[n] - cash_out
-			b1000 = cash_out//1000
-			b500 = (cash_out%1000)//500
-			b100 = (cash_out%500)//100
-			if b100 > n100 :
-				print('*************************************************************')
-				print('ATM NOT ENOUGH 100 NOTES ONLY HAVE NOTE FOR 500 AND 1000 BATH')
-				print('*************************************************************')
-			elif b500 > n500 :
-				print('*****************************************************')
-				print('ATM NOT ENOUGH 500 NOTES ONLY HAVE NOTE FOR 1000 BATH')
-				print('*****************************************************')
-			elif b1000 > n1000 :
-				print('****************************')
-				print('ATM NOT ENOUGH MONEY FOR YOU')
-				print('****************************')			
-
-			else:		
-				print('YOU WITHDRAW AMOUNT IS', cash_out , 'BATH')
-				print('YOU GET 100 BATH :' ,b100, 'NOTES')
-				print('YOU GET 500 BATH :' ,b500, 'NOTES')
-				print('YOU GET 1000 BATH :' ,b1000, 'NOTES')
-				print()
-				print('-----------------------------------')
-				print('***********************************')
-				print('YOUR NEW BALANCE IS: ', amounts[n], 'BATH')
-				print('***********************************')
-				print('-----------------------------------')    		
-
+		while True :
+			print('---------------------------------------------')
+			print('*********************************************')
+			input_cash = input('SELECT WITHDRAW MONEY FOLLOWING : \n100 BATH______(A) \n500 BATH______(B) \n1000 BATH_____(C) \n5000 BATH_____(D) \n10000 BATH____(E) \nSPECIFY NUMBER___(I) \n: ').lower()
+			print('---------------------------------------------')
+			print('*********************************************')
+			valid_input = ['a', 'b', 'c' , 'd', 'e', 'i']
+			input_cash = input_cash.lower()
+			if input_cash == 'a':
+				cash_out = 100
+				withdraw(cash_out)
+				break
+			elif input_cash == 'b' :
+				cash_out = 500
+				withdraw(cash_out)
+				break
+			elif input_cash == 'c' :
+				cash_out = 1000	
+				withdraw(cash_out)
+				break
+			elif input_cash == 'd' :
+				cash_out = 5000	
+				withdraw(cash_out)
+				break
+			elif input_cash == 'e' :
+				cash_out = 10000
+				withdraw(cash_out)
+				break
+			elif input_cash == 'i' :
+				while True:
+					try:
+						cash_out = int(input('ENTER AMOUNT YOU WOULD LIKE TO WITHDRAW: '))	
+						break
+					except:
+						print("This is not a number. Please enter a valid number")	
+						print('------------------------------------------------------')
+				withdraw(cash_out)
+				break			
+			else :
+				print('RESPONSE NOT VALID')
+				print('******************')
+				print('------------------')
+    			
 	elif response == 'l':
 		print()
-		print('---------------------------------------------')
-		print('*********************************************')
-		cash_in = int(input('ENTER AMOUNT YOU WANT TO LODGE: '))
-		print('*********************************************')
-		print('---------------------------------------------')
-
-		print()
-		if cash_in%100 != 0:
-			print('----------------------------------------------------')
-			print('****************************************************')
-			print('AMOUNT YOU WANT TO LODGE MUST TO MATCH 100,500,1000 BATH NOTES')
-			print('****************************************************')
-			print('----------------------------------------------------')
-		else:
-			amounts[n] = amounts[n] + cash_in
-			b1000_in = cash_in//1000
-			b500_in = (cash_in%1000)//500
-			b100_in = (cash_in%500)//100
-			print('----------------------------------------')
-			print('****************************************')
-			print('YOU PUT 100 BATH :' ,b100_in, 'NOTES')
-			print('YOU PUT 500 BATH :' ,b500_in, 'NOTES')
-			print('YOU PUT 1000 BATH :' ,b1000_in, 'NOTES')
-			print()
-			print('----------------------------------------')
-			print('****************************************')
-			print('YOUR NEW BALANCE IS: ', amounts[n], 'BATH')
-			print('****************************************')
-			print('----------------------------------------')
+		while True:
+			try:
+				print('---------------------------------------------')
+				print('*********************************************')
+				cash_in = int(input('ENTER AMOUNT YOU WANT TO LODGE: '))
+				Loadgement(cash_in)
+				break
+			except:
+				print("This is not a number. Please enter a valid number")	
+				print('------------------------------------------------------')
 
 	elif response == 'p':
 		print('-----------------------------')
@@ -257,75 +306,104 @@ while True:
 		if bank == 'ks':
 			print('----------------------------------------------------')
 			print('****************************************************')
-			acount_id = int(input('ENTER KASIKORN ACCOUNT ID: '))	
-			print('----------------------------------------------------')
-			print('****************************************************')
-			amount_trans = int(input('ENTER AMOUNT YOU WANT TO TRANSFER: '))
-			print()
+			while True:
+				try:
+					acount_id = int(input('ENTER KASIKORN BANK ACCOUNT ID: '))	
+					print('----------------------------------------------------')
+					print('****************************************************')
+					while True:
+						try:
+							amount_trans = int(input('ENTER AMOUNT YOU WANT TO TRANSFER: '))
+							print('----------------------------------------------------')
+							print('****************************************************')
+							print()
+							amounts[n] = amounts[n] - amount_trans
+							print('----------------------------------------------------')
+							print('****************************************************')
+							print('YOUR ARE SUCCESSFUL TRANSFER : \nBANk : KASIKORN BANK \nACCOUNT_ID : ',acount_id, '\nAMOUNT_TRANSFER :' ,amount_trans, 'BATH' )
+							print('YOUR LEDGER BALANCE IS: ', amounts[n], 'BATH')
+							print('****************************************************')
+							print('----------------------------------------------------')
+							break
+						except:
+							print("This is not a Number. Please enter a Money")	
+							print('------------------------------------------------------')
+					break
+				except:
+					print("This is not a Number. Please enter a valid ACCOUNT ID")	
+					print('------------------------------------------------------')
 
-			amounts[n] = amounts[n] - amount_trans
-			print('----------------------------------------------------')
-			print('****************************************************')
-			print('YOUR ARE SUCCESSFUL TRANSFER : \nBANk : KASIKORN \nACCOUNT_ID : ',acount_id, '\nAMOUNT_TRANSFER :' ,amount_trans, 'BATH' )
-			print('YOUR LEDGER BALANCE IS: ', amounts[n], 'BATH')
-			print('****************************************************')
-			print('----------------------------------------------------')	
 		elif bank == 'bbl':
 			print('----------------------------------------------------')
 			print('****************************************************')
-			acount_id = int(input('ENTER BUALUANG ACCOUNT ID: '))	
-			print('----------------------------------------------------')
-			print('****************************************************')
-			amount_trans = int(input('ENTER AMOUNT YOU WANT TO TRANSFER: '))
-			print('----------------------------------------------------')
-			print('****************************************************')
-			print()
-
-			amounts[n] = amounts[n] - amount_trans
-			print('----------------------------------------------------')
-			print('****************************************************')
-			print('YOUR ARE SUCCESSFUL TRANSFER : \nBANk : BUALUANG \nACCOUNT_ID : ',acount_id, '\nAMOUNT_TRANSFER :' ,amount_trans, 'BATH' )
-			print('YOUR LEDGER BALANCE IS: ', amounts[n], 'BATH')
-			print('****************************************************')
-			print('----------------------------------------------------')
+			while True:
+				try:
+					acount_id = int(input('ENTER BUALUANG BANK ACCOUNT ID: '))	
+					print('----------------------------------------------------')
+					print('****************************************************')
+					while True:
+						try:
+							amount_trans = int(input('ENTER AMOUNT YOU WANT TO TRANSFER: '))
+							print('----------------------------------------------------')
+							print('****************************************************')
+							print()
+							amounts[n] = amounts[n] - amount_trans
+							print('----------------------------------------------------')
+							print('****************************************************')
+							print('YOUR ARE SUCCESSFUL TRANSFER : \nBANk : BUALUANG BANK \nACCOUNT_ID : ',acount_id, '\nAMOUNT_TRANSFER :' ,amount_trans, 'BATH' )
+							print('YOUR LEDGER BALANCE IS: ', amounts[n], 'BATH')
+							print('****************************************************')
+							print('----------------------------------------------------')
+							break
+						except:
+							print("This is not a Number. Please enter a Money")	
+							print('------------------------------------------------------')
+					break
+				except:
+					print("This is not a Number. Please enter a valid ACCOUNT ID")	
+					print('------------------------------------------------------')
 		elif bank == 'scb':
 			print('----------------------------------------------------')
 			print('****************************************************')
-			acount_id = int(input('ENTER SIAM COMERCAIL BANK ACCOUNT ID: '))	
-			print('----------------------------------------------------')
-			print('****************************************************')
-			amount_trans = int(input('ENTER AMOUNT YOU WANT TO TRANSFER: '))
-			print('----------------------------------------------------')
-			print('****************************************************')
-			print()
+			while True:
+				try:
+					acount_id = int(input('ENTER SIAM COMERCAIL BANK ACCOUNT ID: '))	
+					print('----------------------------------------------------')
+					print('****************************************************')
+					while True:
+						try:
+							amount_trans = int(input('ENTER AMOUNT YOU WANT TO TRANSFER: '))
+							print('----------------------------------------------------')
+							print('****************************************************')
+							print()
+							amounts[n] = amounts[n] - amount_trans
+							print('----------------------------------------------------')
+							print('****************************************************')
+							print('YOUR ARE SUCCESSFUL TRANSFER : \nBANk : SIAM COMERCAIL BANK \nACCOUNT_ID : ',acount_id, '\nAMOUNT_TRANSFER :' ,amount_trans, 'BATH' )
+							print('YOUR LEDGER BALANCE IS: ', amounts[n], 'BATH')
+							print('****************************************************')
+							print('----------------------------------------------------')
+							break
+						except:
+							print("This is not a Number. Please enter a valid Money")	
+							print('------------------------------------------------------')
+					break
+				except:
+					print("This is not a Number. Please enter a valid ACCOUNT ID")	
+					print('------------------------------------------------------')
 
-			amounts[n] = amounts[n] - amount_trans
-			print('----------------------------------------------------')
-			print('****************************************************')
-			print('YOUR ARE SUCCESSFUL TRANSFER : \nBANk : SIAM COMERCAIL BANK \nACCOUNT_ID : ',acount_id, '\nAMOUNT_TRANSFER :' ,amount_trans, 'BATH' )
-			print('YOUR LEDGER BALANCE IS: ', amounts[n], 'BATH')
-			print('****************************************************')
-			print('----------------------------------------------------')
 		elif bank == 'o':
 			print('----------------------------------------------------')
 			print('****************************************************')
-			morebank = str(input('ENTER BANK NAME: '))
-			print('BANK NAME :',morebank)
-			acount_id = int(input('ENTER BANK ACCOUNT ID: '))	
-			print('----------------------------------------------------')
-			print('****************************************************')	
-			amount_trans = int(input('ENTER AMOUNT YOU WANT TO TRANSFER: '))
-			print('----------------------------------------------------')
-			print('****************************************************')
-			print()
-
-			amounts[n] = amounts[n] - amount_trans
-			print('----------------------------------------------------')
-			print('****************************************************')
-			print('YOUR ARE SUCCESSFUL TRANSFER : \nBANk : ',morebank, ' \nACCOUNT_ID : ',acount_id, '\nAMOUNT_TRANSFER :' ,amount_trans, 'BATH' )
-			print('YOUR LEDGER BALANCE IS: ', amounts[n], 'BATH')
-			print('****************************************************')
-			print('----------------------------------------------------')
+			while True:
+					morebank = input('ENTER BANK NAME: ')
+					if morebank.isalpha():
+						SelectO(morebank)
+						break
+					else:
+						print("This is not a string. Please enter a valid Name")	
+						print('------------------------------------------------------')
+						
 		else :
 			print('------------------')
 			print('******************')
